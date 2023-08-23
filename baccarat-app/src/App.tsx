@@ -9,25 +9,25 @@ import { CARD_VALUE_MAP } from "./constants";
 function App() {
   const [players, setPlayers] = useState<Player[]>([
     {
-      name: "NPC1",
+      name: "P4",
       hand: [],
       points: 0,
       coins: 500,
     },
     {
-      name: "NPC2",
+      name: "P3",
       hand: [],
       points: 0,
       coins: 1000,
     },
     {
-      name: "Player",
+      name: "P2",
       hand: [],
       points: 0,
       coins: 5000,
     },
     {
-      name: "NPC3",
+      name: "P1",
       hand: [],
       points: 0,
       coins: 1000,
@@ -163,11 +163,10 @@ function App() {
     });
   };
   const handleVerdictGame = () => {
-    if (players[2].coins === 0) {
-      alert("You are lose, we will reset the game");
-      return true;
-    } else if (alivePlayer.length === 1 && players[2].coins != 0) {
-      alert("You are the winner, we will reset the game");
+    if (alivePlayer.length === 1 && players[2].coins != 0) {
+      alert(
+        "There are not enough player to continue to play, the game will be reset!"
+      );
       return true;
     }
     return false;
