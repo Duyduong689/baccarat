@@ -15,7 +15,7 @@ const PlayerCard: React.FC<PlayerProps> = (props) => {
           src="https://gamek.mediacdn.vn/133514250583805952/2020/5/12/photo-1-1589270609553645901855.jpg"
           width={150}
           height={150}
-          alt='playerAvt'
+          alt="playerAvt"
         />
         <span>Coins: {coins}</span>
       </div>
@@ -51,7 +51,7 @@ const PlayerCard: React.FC<PlayerProps> = (props) => {
             width={150}
             alt=""
           />
-          {/* <span style={{ fontSize: "100px" }}>Lose</span> */}
+          <span style={{ fontSize: "25px" }}>Not enough money</span>
         </div>
       )}
     </div>
