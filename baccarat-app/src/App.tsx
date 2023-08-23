@@ -145,6 +145,7 @@ function App() {
         ...prev.map((item, index) => {
           if (item.points < prev[maxIndex].points && item.coins > 0) {
             item.coins -= 900;
+            item.coins = item.coins > 0 ? item.coins : 0;
           }
           return item;
         }),
