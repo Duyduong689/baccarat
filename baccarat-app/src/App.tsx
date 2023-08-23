@@ -74,7 +74,9 @@ function App() {
     if (handleVerdictGame()) {
       handleResetDeck();
     } else {
-      handleSetCoinsPlayer();
+      if (isRevealHand) {
+        handleSetCoinsPlayer();
+      }
       useShuffleDeck.mutate(deckData["deck_id"]);
     }
   };
@@ -168,7 +170,6 @@ function App() {
     });
     setEnableReveal(false);
     setIsRevealHand(false);
-
   };
   const handleVerdictGame = () => {
     if (alivePlayer.length <= 1) {
@@ -221,7 +222,10 @@ function App() {
                 </div>
                 <div className="groupBtn">
                   <button
-                    className="button-5"
+                    className={` button-5 ${
+                      enableReveal ? "disable" : "enable"
+                    }  `}
+                    disabled={enableReveal ? true : false}
                     style={{ background: "#078b04", color: "white" }}
                     onClick={handleShuffleDeck}
                   >
@@ -231,9 +235,9 @@ function App() {
                     className={` button-5 ${
                       enableReveal ? "disable" : "enable"
                     }  `}
+                    disabled={enableReveal ? true : false}
                     style={{ background: "rgb(184 189 10)", color: "white" }}
                     onClick={handleDrawnDeck}
-                    disabled={enableReveal ? true : false}
                   >
                     Drawn
                   </button>
