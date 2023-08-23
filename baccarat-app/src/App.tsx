@@ -163,7 +163,7 @@ function App() {
     });
   };
   const handleVerdictGame = () => {
-    if (alivePlayer.length === 1 && players[2].coins != 0) {
+    if (alivePlayer.length === 1) {
       alert(
         "There are not enough player to continue to play, the game will be reset!"
       );
