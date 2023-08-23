@@ -10,7 +10,7 @@ export const CARD_VALUE_MAP: Record<CardValue, number> = {
   7: 7,
   8: 8,
   9: 9,
-  10: 0,
+  10: 10,
   JACK: 10,
   QUEEN: 10,
   KING: 10,
