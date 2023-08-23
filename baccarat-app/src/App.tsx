@@ -37,6 +37,8 @@ function App() {
   const [currentDrawCards, setCurrentDrawCards] = useState<Card[]>([]);
   const [remainingCards, setRemainingCards] = useState<number>(52);
   const [isRevealHand, setIsRevealHand] = useState<boolean>(false);
+  const [enableReveal, setEnableReveal] = useState<boolean>(false);
+
   const [alivePlayer, setAlivePlayer] = useState<
     ({ name: string; index: number } | undefined)[]
   >([]);
@@ -46,6 +48,7 @@ function App() {
     onSuccess: (data: any) => {
       setRemainingCards(data.remaining);
       setCurrentDrawCards(data.cards);
+      setEnableReveal(true);
     },
     onError: (error: string) => {
       console.log(error);
@@ -71,6 +74,7 @@ function App() {
     if (handleVerdictGame()) {
       handleResetDeck();
     } else {
+      handleSetCoinsPlayer();
       useShuffleDeck.mutate(deckData["deck_id"]);
     }
   };
@@ -89,7 +93,6 @@ function App() {
       }
     }
   };
-
   const dealCardToPlayers = (cards: Card[]) => {
     setIsRevealHand(false);
     handleSetCoinsPlayer();
@@ -127,8 +130,10 @@ function App() {
     if (handleVerdictGame()) {
       handleResetDeck();
     } else {
-      if (!isRevealHand && remainingCards !== 52) {
+      if (remainingCards !== 52) {
         setIsRevealHand(true);
+        setEnableReveal(false);
+        setIsRevealHand(false);
       }
     }
   };
@@ -162,6 +167,7 @@ function App() {
       prev[3] = { ...prev[3], coins: 5000, hand: [], points: 0 };
       return [...prev];
     });
+    setEnableReveal(false);
   };
   const handleVerdictGame = () => {
     if (alivePlayer.length <= 1) {
@@ -221,14 +227,20 @@ function App() {
                     Shuffle
                   </button>
                   <button
-                    className="button-5"
+                    className={` button-5 ${
+                      enableReveal ? "disable" : "enable"
+                    }  `}
                     style={{ background: "rgb(184 189 10)", color: "white" }}
                     onClick={handleDrawnDeck}
+                    disabled={enableReveal ? true : false}
                   >
                     Drawn
                   </button>
                   <button
-                    className="button-5"
+                    className={` button-5 ${
+                      !enableReveal ? "disable" : "enable"
+                    }  `}
+                    disabled={!enableReveal ? true : false}
                     style={{ background: "rgb(53 59 203)", color: "white" }}
                     onClick={handleRevealDeck}
                   >
