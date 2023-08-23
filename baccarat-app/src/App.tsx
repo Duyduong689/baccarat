@@ -12,25 +12,25 @@ function App() {
       name: "P4",
       hand: [],
       points: 0,
-      coins: 500,
+      coins: 5000,
     },
     {
       name: "P3",
       hand: [],
       points: 0,
-      coins: 500,
+      coins: 5000,
     },
     {
       name: "P2",
       hand: [],
       points: 0,
-      coins: 500,
+      coins: 5000,
     },
     {
       name: "P1",
       hand: [],
       points: 0,
-      coins: 500,
+      coins: 5000,
     },
   ]);
 
