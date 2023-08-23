@@ -18,19 +18,19 @@ function App() {
       name: "P3",
       hand: [],
       points: 0,
-      coins: 1000,
+      coins: 500,
     },
     {
       name: "P2",
       hand: [],
       points: 0,
-      coins: 5000,
+      coins: 500,
     },
     {
       name: "P1",
       hand: [],
       points: 0,
-      coins: 1000,
+      coins: 500,
     },
   ]);
 
@@ -92,6 +92,7 @@ function App() {
 
   const dealCardToPlayers = (cards: Card[]) => {
     setIsRevealHand(false);
+    handleSetCoinsPlayer();
     const sortedAlivePlayer = alivePlayer
       .slice()
       .sort((a, b) => (b?.index || 0) - (a?.index || 0));
@@ -128,29 +129,28 @@ function App() {
     } else {
       if (!isRevealHand && remainingCards !== 52) {
         setIsRevealHand(true);
-        setPlayers((prev) => {
-          const maxIndex = prev.reduce(
-            (maxIndex, currentObject, currentIndex) => {
-              if (currentObject.points > prev[maxIndex].points) {
-                return currentIndex;
-              } else {
-                return maxIndex;
-              }
-            },
-            0
-          );
-          prev = [
-            ...prev.map((item, index) => {
-              if (index !== maxIndex && item.coins > 0) {
-                item.coins -= 500;
-              }
-              return item;
-            }),
-          ];
-          return prev;
-        });
       }
     }
+  };
+  const handleSetCoinsPlayer = () => {
+    setPlayers((prev) => {
+      const maxIndex = prev.reduce((maxIndex, currentObject, currentIndex) => {
+        if (currentObject.points > prev[maxIndex].points) {
+          return currentIndex;
+        } else {
+          return maxIndex;
+        }
+      }, 0);
+      prev = [
+        ...prev.map((item, index) => {
+          if (item.points < prev[maxIndex].points && item.coins > 0) {
+            item.coins -= 500;
+          }
+          return item;
+        }),
+      ];
+      return prev;
+    });
   };
   const handleResetDeck = () => {
     useShuffleDeck.mutate(deckData["deck_id"]);
@@ -163,7 +163,7 @@ function App() {
     });
   };
   const handleVerdictGame = () => {
-    if (alivePlayer.length === 1) {
+    if (alivePlayer.length <= 1) {
       alert(
         "There are not enough player to continue to play, the game will be reset!"
       );
@@ -190,7 +190,6 @@ function App() {
       });
     }
   }, [players]);
-
   return (
     <div>
       <div className="table">
