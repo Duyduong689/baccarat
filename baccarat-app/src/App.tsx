@@ -133,7 +133,6 @@ function App() {
       if (remainingCards !== 52) {
         setIsRevealHand(true);
         setEnableReveal(false);
-        setIsRevealHand(false);
       }
     }
   };
@@ -168,6 +167,8 @@ function App() {
       return [...prev];
     });
     setEnableReveal(false);
+    setIsRevealHand(false);
+
   };
   const handleVerdictGame = () => {
     if (alivePlayer.length <= 1) {
